@@ -45,12 +45,37 @@ class SignUp extends Component {
     return formIsValid
   }
 
-  handleSubmit = (e) => {
+  handleSubmit = async (e) => {
     e.preventDefault()
     if (this.validateForm()) {
-      // Handle successful form submission
-      console.log('Form submitted successfully')
+      const { username, email, password } = this.state
+      try {
+        fetch('http://localhost:5000/api/save_user_info', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ username, email, password }),
+        })
+          .then((response) => {
+            if (response.ok) {
+              console.log('Form submitted successfully')
+              // Handle successful form submission (e.g., show a success message, clear the form, etc.)
+            } else {
+              console.error('Form submission failed')
+              // Handle form submission failure (e.g., show an error message)
+            }
+          })
+          .catch((error) => {
+            console.error('Error:', error)
+            // Handle network or other errors
+          })
+      } catch (error) {
+        console.error('Error:', error)
+        // Handle network or other errors
+      }
     }
+    console.log('Form submitted successfully')
   }
 
   render() {
