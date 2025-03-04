@@ -45,7 +45,7 @@ class SignUp extends Component {
     return formIsValid
   }
 
-  handleSubmit = async (e) => {
+  handleSubmit = (e) => {
     e.preventDefault()
     if (this.validateForm()) {
       const { username, email, password } = this.state
@@ -54,6 +54,7 @@ class SignUp extends Component {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*',
           },
           body: JSON.stringify({ username, email, password }),
         })
@@ -87,20 +88,28 @@ class SignUp extends Component {
         <form onSubmit={this.handleSubmit}>
           <div>
             <label>Username:</label>
-            <input type='text' name='username' value={username} onChange={this.handleChange} />
+            <input type='text' name='username' value={username} onChange={this.handleChange} style={{ width: 260 }} />
             {errors.username && <span className='error'>{errors.username}</span>}
           </div>
           <div>
             <label>Email:</label>
-            <input type='email' name='email' value={email} onChange={this.handleChange} />
+            <input type='email' name='email' value={email} onChange={this.handleChange} style={{ width: 260 }} />
             {errors.email && <span className='error'>{errors.email}</span>}
           </div>
           <div>
             <label>Password:</label>
-            <input type='password' name='password' value={password} onChange={this.handleChange} />
+            <input
+              type='password'
+              name='password'
+              value={password}
+              onChange={this.handleChange}
+              style={{ width: 260 }}
+            />
             {errors.password && <span className='error'>{errors.password}</span>}
           </div>
-          <button type='submit'>Sign Up</button>
+          <button type='submit' style={{ width: 280, alignItems: 'center' }}>
+            Sign Up
+          </button>
         </form>
       </div>
     )

@@ -5,7 +5,7 @@ import './styles/main.css'
 
 const App = () => {
   return (
-    <div class='space-image'>
+    <div className='space-image'>
       <h1>Welcome to SafeSpace UI</h1>
       <SignUp />
     </div>
