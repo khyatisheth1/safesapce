@@ -1,4 +1,6 @@
+// filepath: /Users/khyatisheth/go/safespace/safesapce/src/components/SignUp.js
 import React, { Component } from 'react'
+import withNavigation from './withNavigation'
 
 class SignUp extends Component {
   constructor(props) {
@@ -54,51 +56,62 @@ class SignUp extends Component {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': '*',
           },
           body: JSON.stringify({ username, email, password }),
         })
           .then((response) => {
             if (response.ok) {
               console.log('Form submitted successfully')
-              // Handle successful form submission (e.g., show a success message, clear the form, etc.)
+              // Navigate to Parent Teacher Registration page
+              this.props.navigate('/parent-teacher-registration')
             } else {
               console.error('Form submission failed')
-              // Handle form submission failure (e.g., show an error message)
             }
           })
           .catch((error) => {
             console.error('Error:', error)
-            // Handle network or other errors
           })
       } catch (error) {
         console.error('Error:', error)
-        // Handle network or other errors
       }
     }
-    console.log('Form submitted successfully')
   }
 
   render() {
     const { username, email, password, errors } = this.state
 
     return (
-      <div className='signup-container'>
+      <div className='common-container'>
         <h2 style={{ color: 'white' }}>Sign Up</h2>
         <form onSubmit={this.handleSubmit}>
           <div>
-            <label>Username:</label>
-            <input type='text' name='username' value={username} onChange={this.handleChange} style={{ width: 260 }} />
+            <label htmlFor='username'>Username:</label>
+            <input
+              id='username'
+              type='text'
+              name='username'
+              value={username}
+              onChange={this.handleChange}
+              style={{ width: 260 }}
+            />
             {errors.username && <span className='error'>{errors.username}</span>}
           </div>
           <div>
-            <label>Email:</label>
-            <input type='email' name='email' value={email} onChange={this.handleChange} style={{ width: 260 }} />
+            <label htmlFor='email'>Email:</label>
+            <input
+              id='email'
+              type='email'
+              name='email'
+              value={email}
+              onChange={this.handleChange}
+              style={{ width: 260 }}
+            />
             {errors.email && <span className='error'>{errors.email}</span>}
           </div>
           <div>
-            <label>Password:</label>
+            <label htmlFor='password'>Password:</label>
             <input
+              id='password'
               type='password'
               name='password'
               value={password}
@@ -116,4 +129,4 @@ class SignUp extends Component {
   }
 }
 
-export default SignUp
+export default withNavigation(SignUp)
